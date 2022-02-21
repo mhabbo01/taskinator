@@ -3,7 +3,7 @@ var formEl = document.querySelector("#task-form");
 var tasksToDoEl = document.querySelector("#tasks-to-do");
 
 // addEventListener will listen for the click and will execute function
-var createTaskHandler = function() {
+var taskFormHandler = function() {
     // prevents the default browser behavior
     event.preventDefault();
     //we are selecting an <input> element on the page that has a name attribute set to "task-name".
@@ -13,6 +13,19 @@ var createTaskHandler = function() {
     var taskTypeInput = document.querySelector("select[name='task-type']").value;
     //console.dir will have the console display data as a JavaScript object, show virtually everything about the element.
     // console.dir(taskNameInput);
+
+    //package up data as an object
+    var taskDataObj = {
+        name: taskNameInput,
+        type: taskTypeInput
+    };
+
+    //send it as an argument to createTaskEl
+    createTaskEl(taskDataObj);
+    
+};
+
+var createTaskEl = function(taskDataObj) {
     // it will create a new li element in the html
     var listItemEl = document.createElement("li");
     listItemEl.className = "task-item";
@@ -23,12 +36,12 @@ var createTaskHandler = function() {
     // this is the text that will display when we hit the button to add a new task
     //in here we are adding taskNameInput which will give us the value we retreived above
     //add html content to div, must use innerHTML to insert this
-    listItemEl.innerHTML = "<h3 class='task-name'>" + taskNameInput + "</h3><span class='task-type'>" + taskTypeInput + "</span>";
+    listItemEl.innerHTML = "<h3 class='task-name'>" + taskDataObj.name + "</h3><span class='task-type'>" + taskDataObj.type + "</span>";
     // appendChild add the new item to the end of the list.
     listItemEl.appendChild(taskInfoEl);
 
     tasksToDoEl.appendChild(listItemEl);
-};
+}
 
 // on a button click, create a task
-formEl.addEventListener("submit", createTaskHandler);
+formEl.addEventListener("submit", taskFormHandler);
