@@ -14,6 +14,14 @@ var taskFormHandler = function() {
     //console.dir will have the console display data as a JavaScript object, show virtually everything about the element.
     // console.dir(taskNameInput);
 
+    //check if inut values are empty strings, ! checks if the value is false
+    if (!taskNameInput || !taskTypeInput) {
+        alert("You need to fill out the task form!");
+        return false;
+    }
+    //resets the form each time a task is added
+    formEl.reset();
+
     //package up data as an object
     var taskDataObj = {
         name: taskNameInput,
